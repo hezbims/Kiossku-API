@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\GetImageController;
+use App\Http\Controllers\GetPropertiController;
+use App\Http\Controllers\PostPropertiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/getProperties' , [ProductController::class , 'getAllProducts']);
+Route::get('/getProperties' , [GetPropertiController::class , 'getAllProducts']);
 
-Route::post('/postProduct' , [ProductController::class , 'postProduct']);
+Route::post('/postProduct' , [PostPropertiController::class , 'postProduct']);
+
+Route::post('/debugUploadImage' , [PostPropertiController::class , 'debugUploadImage']);
+
+Route::get('/getImage/{imageName}' , [GetImageController::class , 'fetchPropertiImage']);

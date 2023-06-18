@@ -4,30 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PropertiResource;
 use App\Models\Properti;
+use App\Models\PropertiImage;
 use Exception;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class PostPropertiController extends Controller
 {
-    //
-    function getAllProducts(Request $request){
-        return PropertiResource::collection(Properti::all());
-    }
-
     function postProduct(Request $request){
         try{
-            $images = $request->file('images');
-            // return response()->json([
-            //     'message' => gettype($images),
-            // ])->setStatusCode(500);
-            foreach ($images as $index => $image){
 
-                $extension = $image->extension();
-                $filename = microtime(true) . $index;
-                $image->storeAs("properti_images" , $filename . '.' . 'png');
-            }
-            
-            Properti::create([
+            $idProperti = Properti::create([
                 'judulPromosi' => $request['judulPromosi'],
                 'harga' => $request['harga'],
                 'waktuPembayaran' => $request['waktuPembayaran'],
@@ -46,10 +32,41 @@ class ProductController extends Controller
                 'deskripsi' => $request['deskripsi'],
                 'panjang' => $request['panjang'],
                 'lebar' => $request['lebar']
-            ]);
-    
+            ])->id;
+
+            // STORE BINARY IMAGE
+            $images = $request->file('images');
+            foreach ($images as $index => $image){
+                $extension = $image->extension();
+                $filename = microtime(true) . $index . '.' . $extension;
+                $image->storeAs("properti_images" , $filename);
+                PropertiImage::create([
+                    'propertiId' => $idProperti,
+                    'imageName' => $filename,
+                ]);
+            }
+
             return response()->json([
                 'message' => "Berhasil membuat data baru!"
+            ]);
+        } catch(Exception $e){
+            return response()->json([
+                'message' => $e->getMessage(),
+            ])->setStatusCode(500);
+        }
+    }
+
+    function debugUploadImage(Request $request){
+        try{
+            $images = $request->file('images');
+            foreach ($images as $index => $image){
+                $extension = $image->extension();
+                $filename = microtime(true) . $index;
+                $image->storeAs("properti_images" , $filename . '.' . 'png');
+            }
+
+            return response()->json([
+                'message' => "Berhasil upload image"
             ]);
         } catch(Exception $e){
             return response()->json([

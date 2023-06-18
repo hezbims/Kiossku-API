@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Properti extends Model
 {
@@ -29,4 +30,8 @@ class Properti extends Model
         'panjang',
         'lebar'
     ];
+
+    function images() : hasMany{
+        return $this->hasMany(PropertiImage::class , 'propertiId' , 'id');
+    }
 }
