@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("judulPromosi");
             $table->integer('harga');
             $table->string('waktuPembayaran');
+            $table->string('tipeProperti');
             $table->string('fixNego');
             $table->string('sewaJual');
             $table->string('provinsi');
@@ -29,8 +30,8 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('fasilitas');
             $table->string('deskripsi');
-            $table->string('panjang');
-            $table->string('lebar');
+            $table->integer('panjang');
+            $table->integer('lebar');
             $table->timestamps();
         });
     }

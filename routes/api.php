@@ -28,3 +28,5 @@ Route::post('/postProduct' , [PostPropertiController::class , 'postProduct']);
 Route::post('/debugUploadImage' , [PostPropertiController::class , 'debugUploadImage']);
 
 Route::get('/getImage/{imageName}' , [GetImageController::class , 'fetchPropertiImage']);
+
+Route::get('/getPropertiById/{id}' , [GetPropertiController::class , 'getPropertiById']);
