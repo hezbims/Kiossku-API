@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('propertis', function (Blueprint $table) {
             $table->id();
             $table->string("judulPromosi");
-            $table->integer('harga');
+            $table->bigInteger('harga');
             $table->string('waktuPembayaran');
             $table->string('tipeProperti');
             $table->string('fixNego');
@@ -23,15 +23,15 @@ return new class extends Migration
             $table->string('kota');
             $table->string('kecamatan');
             $table->string('kelurahan');
-            $table->integer('luasLahan');
-            $table->integer('luasBangunan');
-            $table->integer('tingkat');
-            $table->integer('kapasitasListrik');
+            $table->bigInteger('luasLahan');
+            $table->bigInteger('luasBangunan');
+            $table->bigInteger('tingkat');
+            $table->bigInteger('kapasitasListrik');
             $table->string('alamat');
             $table->string('fasilitas');
             $table->string('deskripsi');
-            $table->integer('panjang');
-            $table->integer('lebar');
+            $table->bigInteger('panjang');
+            $table->bigInteger('lebar');
             $table->timestamps();
         });
     }
